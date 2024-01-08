@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Card, Input, Label } from '../components/ui'
+import { Button, Card, Container, Input, Label } from '../components/ui'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext'
 
@@ -18,7 +18,7 @@ const LoginPage = () => {
     }
   })
   return (
-    <div className='h-[calc(100vh-64px)] flex justify-center items-center'>
+    <Container className='h-[calc(100vh-10rem)] flex justify-center items-center'>
       <Card>
         {/* {JSON.stringify(errors)} */}
 
@@ -52,7 +52,7 @@ const LoginPage = () => {
           </div>
         </form>
       </Card>
-    </div>
+    </Container>
   )
 }
 
