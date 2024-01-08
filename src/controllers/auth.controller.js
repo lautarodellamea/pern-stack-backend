@@ -28,8 +28,11 @@ export const signin = async (req, res) => {
 
   // enviamos al front en la cookie mediante la res
   res.cookie('token', token, {
-    httpOnly: true,
-    // secure: true
+    // debo activarlo en produccion
+    // httpOnly: true,
+
+    // cuando haga pruedas en thunderclient o postman desactivar esto
+    secure: true,
     sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000,
   })
@@ -66,10 +69,11 @@ export const signup = async (req, res, next) => {
     // mando la cookie a cualquier ruta que yo quiera cuidar para que entren usuarios autenticados
     res.cookie('token', token, {
       // para que solo se pueda recibir mediante protocolo http y no mediante js
-      httpOnly: true,
+      // lo podria sacar si estoy haciendo pruebas locales, y asi poder ir a la pestaña aplicacion/cookies de la consola del navegador y ver el dato
+      // httpOnly: true,
 
-      // para que solo se lea si esta en https
-      // secure: true,
+      // para que solo se lea si esta en https, ponemos en true para que se pueda ver la cookie en el navegador tbn
+      secure: true,
 
       // para que el navegador etablezca la cookie si el backend y el frontend estan en distintos host
       sameSite: 'none',
