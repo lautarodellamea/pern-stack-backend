@@ -8,6 +8,11 @@ CREATE TABLE task(
 ALTER TABLE task ADD COLUMN user_id INTEGER REFERENCES users(id);
 
 
+/* el titulo no debe ser unico, le quitamos el UNIQUE
+ya que al crear otra tarea con un nuevo usuario y si el titulo es igual a al titulo de una tarea de otro usuario no me dejara crearla, manualmente corroboraremos que el titulo es unico para dicho usuario */
+ALTER TABLE task DROP CONSTRAINT task_title_key;
+
+
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,

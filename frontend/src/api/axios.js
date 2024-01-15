@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const client = axios.create({
   baseURL: 'http://localhost:3000/api',
+  // esto envia el token de forma utomatica cada vez que hacemos una peticion
   withCredentials: true,
 })
 

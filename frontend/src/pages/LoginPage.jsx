@@ -4,9 +4,13 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '../context/AuthContext'
 
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
-  const { signin, errors } = useAuth()
+  const { signin, errors: loginErrors } = useAuth()
   const navigate = useNavigate()
 
   const onSubmit = handleSubmit(async (data) => {
@@ -14,7 +18,7 @@ const LoginPage = () => {
     const user = await signin(data)
 
     if (user) {
-      navigate('/profile')
+      navigate('/tasks')
     }
   })
   return (
@@ -22,8 +26,8 @@ const LoginPage = () => {
       <Card>
         {/* {JSON.stringify(errors)} */}
 
-        {errors &&
-          errors.map((err) => (
+        {loginErrors &&
+          loginErrors.map((err) => (
             <p key={err} className='text-red-500 text-center'>
               {err}
             </p>
@@ -36,17 +40,22 @@ const LoginPage = () => {
             placeholder='Email'
             {...register('email', { required: true })}
           />
+          {errors.email && <p className='text-red-500'>Email is required</p>}
           <Label htmlFor='password'>Password</Label>
           <Input
             type='password'
             placeholder='password'
+            autoComplete='current-password'
             {...register('password', { required: true })}
           />
+          {errors.password && (
+            <p className='text-red-500'>Password is required</p>
+          )}
           <Button>Sign in</Button>
 
           <div className='flex justify-between my-4'>
-            <p>Don't have an account? </p>
-            <Link to='/register' className='font-bold ml-1'>
+            <p className='mr-4'>Don't have an account? </p>
+            <Link to='/register' className='font-bold '>
               Register
             </Link>
           </div>

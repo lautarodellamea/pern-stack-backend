@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [isAuth, setIsAuth] = useState(false)
   const [errors, setErrors] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const signup = async (data) => {
     try {
@@ -62,7 +63,14 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const signout = async () => {
+    await axios.post('/signout')
+    setUser(null)
+    setIsAuth(false)
+  }
+
   useEffect(() => {
+    setLoading(true)
     // el modulo o libreria js-cookie me permite acceder y leer las cookies
     // console.log(Cookie.get('token'))
     if (Cookie.get('token')) {
@@ -79,10 +87,21 @@ export function AuthProvider({ children }) {
           setIsAuth(false)
         })
     }
+    setLoading(false)
   }, [])
 
+  useEffect(() => {
+    const clean = setTimeout(() => {
+      setErrors(null)
+    }, 5000)
+
+    return () => clearTimeout(clean)
+  }, [errors])
+
   return (
-    <AuthContext.Provider value={{ user, isAuth, errors, signup, signin }}>
+    <AuthContext.Provider
+      value={{ user, isAuth, errors, signup, signin, signout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   )

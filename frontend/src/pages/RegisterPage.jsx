@@ -19,7 +19,7 @@ const RegisterPage = () => {
     // CON AXIOS
     const user = await signup(data)
     if (user) {
-      navigate('/profile')
+      navigate('/tasks')
     }
 
     // CON FETCH (usaremos Axios)
@@ -54,6 +54,7 @@ const RegisterPage = () => {
           <Label htmlFor='name'>Name</Label>
           <Input
             placeholder='Enter your name'
+            autoComplete='username'
             {...register('name', { required: true })}
           />
           {errors.name && <p className='text-red-500'>Name is required</p>}
@@ -61,6 +62,7 @@ const RegisterPage = () => {
           <Input
             type='email'
             placeholder='Enter your email'
+            autoComplete='username'
             {...register('email', { required: true })}
           />
           {errors.email && <p className='text-red-500'>Email is required</p>}
@@ -68,6 +70,7 @@ const RegisterPage = () => {
           <Input
             type='password'
             placeholder='Enter your password'
+            autoComplete='current-password'
             {...register('password', { required: true })}
           />
           {errors.password && (
@@ -76,8 +79,8 @@ const RegisterPage = () => {
           <Button>Register</Button>
 
           <div className='flex justify-between my-4'>
-            <p>Already have an account?</p>
-            <Link to='/login' className='font-bold ml-1'>
+            <p className='mr-4'>Already have an account?</p>
+            <Link to='/login' className='font-bold'>
               Login
             </Link>
           </div>
